@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AutotrackerApp.ViewModels"
+             x:Class="AutotrackerApp.Views.RegisterVehiclePage"
+             x:DataType="vm:RegisterVehicleViewModel"
+             Title="Nuevo Vehiculo">
+    <ScrollView>
+        <VerticalStackLayout Padding="20,24" Spacing="16">
+            <!-- Cada campo del formulario en su propia tarjeta, con etiqueta arriba -->
+            <Border BackgroundColor="{StaticResource Surface}" Padding="16" StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="{StaticResource RadiusButton}" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="14">
+                    
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Placa" Style="{StaticResource CaptionLabel}"/>
+                        <Entry Text="{Binding Plate}" Placeholder="Ej. ABC123"/>
+                    </VerticalStackLayout>
+                    
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Marca" Style="{StaticResource CaptionLabel}"/>
+                        <Entry Text="{Binding Brand}" Placeholder="Ej. Toyota"/>
+                    </VerticalStackLayout>
+                    
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Modelo" Style="{StaticResource CaptionLabel}"/>
+                        <Entry Text="{Binding Model}" Placeholder="Ej. Corolla"/>
+                    </VerticalStackLayout>
+                    
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Año" Style="{StaticResource CaptionLabel}"/>
+                        <Entry Text="{Binding Year}" Placeholder="Ej. 2022" Keyboard="Numeric"/>
+                    </VerticalStackLayout>
+                    
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Guardar Vehiculo" Command="{Binding GuardarCommand}" IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" />
+            
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>

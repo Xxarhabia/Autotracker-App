@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AutotrackerApp.ViewModels"
+             x:Class="AutotrackerApp.Views.VehicleDetailPage"
+             x:DataType="vm:VehicleDetailViewModel"
+             Title="{Binding Vehicle.Plate}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,24" Spacing="16">
+
+            <!-- Tarjeta con los datos básicos del vehículo -->
+            <Border BackgroundColor="{StaticResource Surface}" Padding="20" StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="{StaticResource RadiusCard}" />
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.08" Radius="12" Offset="0,4" />
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{Binding Vehicle.Plate}" Style="{StaticResource HeadingLabel}" />
+                    <Label Text="{Binding Vehicle.Brand}" Style="{StaticResource CaptionLabel}" />
+                    <Label Text="{Binding Vehicle.Model}" Style="{StaticResource CaptionLabel}" />
+                    <Label Text="{Binding Vehicle.Year}" Style="{StaticResource CaptionLabel}" />
+                </VerticalStackLayout>
+            </Border>
+            <!-- Tarjeta de estado: motor, bloqueo, inmovilización -->
+            <Border BackgroundColor="{StaticResource Surface}" Padding="20" StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="{StaticResource RadiusCard}" />
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow  Brush="Black" Opacity="0.08" Radius="12" Offset="0,4" />
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Estado" Style="{StaticResource CardTitleLabel}" />
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0" Text="Motor" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="{Binding Vehicle.EngineOn}" TextColor="{StaticResource StatusOn}" />
+                    </Grid>
+                    
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0" Text="Bloqueado" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="{Binding Vehicle.Locked}" TextColor="{StaticResource StatusLocked}" />
+                    </Grid>
+                    
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0" Text="Inmovilizado" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="{Binding Vehicle.Inmovilized}" TextColor="{StaticResource StatusDanger}" />
+                    </Grid>
+                  
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Tarjeta de ubicación: solo se muestra si el vehículo tiene una
+                 ubicación registrada (evita mostrar "0,0" cuando aún no hay datos) -->
+            <Border BackgroundColor="{StaticResource Surface}" Padding="20" StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="{StaticResource RadiusCard}" />
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow  Brush="Black" Opacity="0.08" Radius="12" Offset="0,4" />
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Ultima ubicacion" Style="{StaticResource CardTitleLabel}" />
+                    <Label Text="{Binding Vehicle.CurrentLocation.Latitude, StringFormat='Lat: {0:F5}'}" Style="{StaticResource CaptionLabel}" />
+                    <Label Text="{Binding Vehicle.CurrentLocation.Longitude, StringFormat='Lat: {0:F5}'}" Style="{StaticResource CaptionLabel}" />
+                    <Label Text="{Binding Vehicle.CurrentLocation.Timestamp, StringFormat='Actualizado: {0:g}'}" Style="{StaticResource CaptionLabel}" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>

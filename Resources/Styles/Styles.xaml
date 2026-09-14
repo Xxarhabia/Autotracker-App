@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <x:Double x:Key="SpacingS">8</x:Double>
+    <x:Double x:Key="SpacingM">16</x:Double>
+    <x:Double x:Key="SpacingL">24</x:Double>
+    <x:Double x:Key="RadiusCard">16</x:Double>
+    <x:Double x:Key="RadiusButton">10</x:Double>
+
+    <!-- Escala tipografica fija para toda la app -->
+    <Style x:Key="HeadingLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="26" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark} }" />
+    </Style>
+    
+    <Style x:Key="CardTitleLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark} }" />
+    </Style>
+    
+    <Style x:Key="CaptionLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark} }" />
+    </Style>
+
+    <!-- Estilos implícitos: se aplican solos, sin escribir Style="..." en cada control -->
+    <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Background}, Dark= {StaticResource BackgroundDark}}" />
+    </Style>
+    
+    <Style TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="16,12" />
+    </Style>
+    
+    <Style TargetType="Entry">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark} }" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondary}" />
+    </Style>
+    
+</ResourceDictionary>

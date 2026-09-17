@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AutotrackerApp.ViewModels"
+             x:Class="AutotrackerApp.Views.RegisterDriverPage"
+             x:DataType="vm:RegisterDriverViewModel"
+             Title="Nuevo Conductor">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,24" Spacing="16">
+            <Border BackgroundColor="{StaticResource Surface}" Padding="16" StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="{StaticResource RadiusButton}" />
+                </Border.StrokeShape>
+                
+                <VerticalStackLayout Spacing="14">
+                    
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Nombre completo" Style="{StaticResource CaptionLabel}"/>
+                        <Entry Text="{Binding Name}" Placeholder="Ej. Juan Pérez"/>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Documento" Style="{StaticResource CaptionLabel}"/>
+                        <Entry Text="{Binding Document}" Placeholder="Ej. 1091234567" Keyboard="Numeric"/>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Teléfono" Style="{StaticResource CaptionLabel}"/>
+                        <Entry Text="{Binding Phone}" Placeholder="Ej. 3001234567" Keyboard="Telephone"/>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Guardar Conductor" Command="{Binding GuardarCommand}" IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter} }" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" />
+            
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

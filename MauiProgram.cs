@@ -31,6 +31,15 @@ public static class MauiProgram
 		builder.Services.AddTransient<VehicleDetailViewModel>();
 		builder.Services.AddTransient<Views.VehicleDetailPage>();
 
+		builder.Services.AddTransient<DriverListViewModel>();
+		builder.Services.AddTransient<Views.DriversPage>();
+
+		builder.Services.AddTransient<RegisterDriverViewModel>();
+		builder.Services.AddTransient<Views.RegisterDriverPage>();
+
+		builder.Services.AddTransient<DrivingSimulationViewModel>();
+		builder.Services.AddTransient<Views.DrivingSimulationPage>();
+
 		builder
 			.UseMauiApp<App>()
 			.ConfigureFonts(fonts =>

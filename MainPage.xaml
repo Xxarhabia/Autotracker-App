@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:AutotrackerApp.Models"
              x:Class="AutotrackerApp.MainPage"
              x:DataType="vm:VehicleListViewModel"
-             Title="Autotracker">
+             Title="Vehiculos">
 
     <Grid RowDefinitions="Auto,*" Padding="20,24" RowSpacing="16">
 

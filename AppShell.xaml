@@ -4,11 +4,39 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:AutotrackerApp"
+    xmlns:views="clr-namespace:AutotrackerApp.Views"
+    FlyoutBehavior="Flyout"
     Title="AutotrackerApp">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <!-- Encabezado sidebar -->
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="{StaticResource Primary}" Padding="20,50,20,24">
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Autotracker" FontSize="20" FontAttributes="Bold" TextColor="White" />
+                <Label Text="Panel de administracion" FontSize="12" TextColor="White" Opacity="0.75" />
+            </VerticalStackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem Title="Vehiculos">
+        <ShellContent 
+            Title="Vehiculos"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="VehiclesPage"/>
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Conductores">
+        <ShellContent 
+            Title="Conductores"
+            ContentTemplate="{DataTemplate views:DriversPage}"
+            Route="DriversPage"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Simular conduccion">
+        <ShellContent 
+            Title="Simular conduccion"
+            ContentTemplate="{DataTemplate views:DrivingSimulationPage}"
+            Route="DrivinSimulationPage"/>
+    </FlyoutItem>
 
 </Shell>

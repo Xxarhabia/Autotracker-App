@@ -38,5 +38,17 @@ namespace AutotrackerApp.Services
             var response = await _httpClient.PostAsJsonAsync("api/drivers", request);
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<bool> AssignVehicleAsync(string document, string plate)
+        {
+            var response = await _httpClient.PatchAsync($"api/drivers/{document}/assign/{plate}", null);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> UnassignVehicleAsync(string document)
+        {
+            var response = await _httpClient.PatchAsync($"api/drivers/{document}/unassign", null);
+            return response.IsSuccessStatusCode;
+        }
     }
 }

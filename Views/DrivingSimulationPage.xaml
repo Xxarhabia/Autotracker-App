@@ -6,8 +6,81 @@
              x:DataType="vm:DrivingSimulationViewModel"
              Title="Simular conducción">
 
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8" Padding="20">
-        <Label Text="🎮" FontSize="40" HorizontalOptions="Center" />
-        <Label Text="{Binding Mensaje}" Style="{StaticResource CaptionLabel}" HorizontalTextAlignment="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <Grid Padding="20,24" RowSpacing="20">
+
+            <!-- Login -->
+            <Border IsVisible="{Binding IsLoggedIn, Converter={StaticResource InvertedBoolConverter}}"
+                    BackgroundColor="{StaticResource Surface}" Padding="20" StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="{StaticResource RadiusCard}" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="Iniciar turno" Style="{StaticResource HeadingLabel}" />
+                    <Label Text="Ingresa tu documento y la plata del vehiculo que tienes asignado" Style="{StaticResource CaptionLabel}" />
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Documento" Style="{StaticResource CaptionLabel}" />
+                        <Entry Text="{Binding DocumentInput}" Placeholder="Ej. 1091234567" Keyboard="Numeric" />
+                    </VerticalStackLayout>
+                    
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Placa asignada" Style="{StaticResource CaptionLabel}" />
+                        <Entry Text="{Binding PlateInput}" Placeholder="Ej. ABC123" />
+                    </VerticalStackLayout>
+
+                    <Button Text="Ingrear" Command="{Binding IngresarCommand}"
+                            IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}" />
+
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Border>
+            
+            <!-- Simulador de conduccion -->
+            <VerticalStackLayout IsVisible="{Binding IsLoggedIn}" Spacing="20">
+                <Border BackgroundColor="{StaticResource Surface}" Padding="20" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="{StaticResource RadiusCard}" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="{Binding DriverName}" Style="{StaticResource CardTitleLabel}" />
+                        <Label Text="{Binding VehiclePlate, StringFormat='Vehiculo: {0}'}" Style="{StaticResource CardTitleLabel}" />
+
+                        <HorizontalStackLayout Spacing="8" Margin="0,8,0,0">
+                            <Ellipse Fill="{Binding EngineOn, Converter={StaticResource BoolToStatusColorConverter}}"
+                                     WidthRequest="12" HeightRequest="12" VerticalOptions="Center" />
+
+                            <Label Text="{Binding EngineStatusText}" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                    <Button Grid.Column="0" Text="Encender" Command="{Binding EncenderCommand}"
+                            IsEnabled="{Binding EngineOn, Converter={StaticResource InvertedBoolConverter}}" />
+                    <Button Grid.Column="1" Text="Apagar" Command="{Binding ApagarCommand}"
+                            IsEnabled="{Binding EngineOn}"/>
+                </Grid>
+
+                <Border Background="{StaticResource Surface}" Padding="20" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="{StaticResource RadiusCard}" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Ubicación" Style="{StaticResource CardTitleLabel}" />
+                        <Label Text="{Binding LastLocationText}" Style="{StaticResource CaptionLabel}" />
+                        <Button Text="Enviar ubicación actual" Command="{Binding EnviarUbicacionCommand}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Button Text="Cerrar sesión" Command="{Binding CerrarSesionCommand}"
+                        BackgroundColor="{StaticResource StatusDanger}" />
+
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" />
+            </VerticalStackLayout>
+            
+        </Grid>
+    </ScrollView>
 </ContentPage>

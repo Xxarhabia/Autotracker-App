@@ -87,5 +87,69 @@ namespace AutotrackerApp.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(Views.RegisterVehiclePage));
         }
+
+        [RelayCommand]
+        private async Task AsignarVehiculo(Driver driver)
+        {
+            if (driver is null) return;
+
+            string plate = await Shell.Current.DisplayPromptAsync(
+                "Asignar vehiculo",
+                $"Placa del vehiculo para {driver.FullName}",
+                accept: "Asignar",
+                cancel: "Cancelar",
+                placeholder: "Ej. ABC123");
+
+            if (string.IsNullOrWhiteSpace(plate)) return;
+
+            try
+            {
+                //IsBusy = true;
+                bool exito = await _apiService.AssignVehicleAsync(driver.Document, plate.Trim());
+
+                if (!exito)
+                {
+                    await Shell.Current.DisplayAlert("Error", "No se pudo asignar el vehículo (verifica que la placa exista y no esté asignada a otro conductor)", "OK");
+                    return;
+                }
+
+                await CargarConductores();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        [RelayCommand]
+        private async Task QuitarVehiculo(Driver driver)
+        {
+            if (driver is null) return;
+
+            bool confirmar = await Shell.Current.DisplayAlert(
+                "Quitar vehiculo",
+                $"Retirar el vehiculo asignado a {driver.FullName}",
+                "Si", "No");
+
+            if (!confirmar) return;
+
+            try
+            {
+                //IsBusy = true;
+                bool exito = await _apiService.UnassignVehicleAsync(driver.Document);
+
+                if (!exito)
+                {
+                    await Shell.Current.DisplayAlert("Error", "No se pudo quitar el vehículo", "OK");
+                    return;
+                }
+
+                await CargarConductores();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
     }
 }

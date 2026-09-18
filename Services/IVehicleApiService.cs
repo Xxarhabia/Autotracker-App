@@ -10,5 +10,10 @@ namespace AutotrackerApp.Services
         Task<List<Vehicle>> GetAllAsync();
         Task<Vehicle?> GetByPlateAsync(string plate);
         Task<Vehicle?> RegisterAsync(CreateVehicleRequest request);
+        Task<bool> StarAsync(string plate);
+        Task<bool> StopAsync(string plate);
+        Task<bool> LockAsync(string plate);
+        Task<bool> UnlockAsync(string plate);
+        Task<bool> UpdateLocationAsync(string plate, Models.Location location);
     }
 }

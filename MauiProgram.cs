@@ -22,6 +22,11 @@ public static class MauiProgram
 			client.BaseAddress = new Uri(apiBaseUrl);
 		});
 
+		builder.Services.AddHttpClient<IDriverApiService, DriverApiService>(client =>
+		{
+			client.BaseAddress = new Uri(apiBaseUrl);
+		});
+
 		builder.Services.AddTransient<VehicleListViewModel>();
 		builder.Services.AddTransient<MainPage>();
 
@@ -39,6 +44,8 @@ public static class MauiProgram
 
 		builder.Services.AddTransient<DrivingSimulationViewModel>();
 		builder.Services.AddTransient<Views.DrivingSimulationPage>();
+
+		builder.Services.AddScoped<IDriverSessionService, DriverSessionService>();
 
 		builder
 			.UseMauiApp<App>()

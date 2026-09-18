@@ -31,6 +31,7 @@ namespace AutotrackerApp.Services
             return await response.Content.ReadFromJsonAsync<Vehicle>();
         }
 
+
         public async Task<Vehicle?> RegisterAsync(CreateVehicleRequest request)
         {
             var response = await _httpClient.PostAsJsonAsync("api/vehicles", request);
@@ -40,5 +41,36 @@ namespace AutotrackerApp.Services
 
             return await response.Content.ReadFromJsonAsync<Vehicle>();
         }
+
+        public async Task<bool> UpdateLocationAsync(string plate, Models.Location location)
+        {
+            var response = await _httpClient.PatchAsync($"api/vehicles/location/{plate}", JsonContent.Create(location));
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> StarAsync(string plate)
+        {
+            var response = await _httpClient.PatchAsync($"api/vehicles/start/{plate}", null);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> StopAsync(string plate)
+        {
+            var response = await _httpClient.PatchAsync($"api/vehicles/stop/{plate}", null);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> LockAsync(string plate)
+        {
+            var response = await _httpClient.PatchAsync($"api/vehicles/lock/{plate}", null);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> UnlockAsync(string plate)
+        {
+            var response = await _httpClient.PatchAsync($"api/vehicles/unlock/{plate}", null);
+            return response.IsSuccessStatusCode;
+        }
+
     }
 }
